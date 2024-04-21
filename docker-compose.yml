@@ -11,6 +11,8 @@ services:
       - db
     environment:
       - DATABASE_URL=mysql://user:password@db:3306/chson
+    networks:
+      - my_network
     working_dir: /app/django
     command: >
       sh -c "pip install -r requirements.txt && 
@@ -29,15 +31,21 @@ services:
     ports:
       - "3307:3306"
 
-  client:
-    image: node:14
+  react:
+    image: node:20.12.2
     volumes:
       - ./react:/react
     ports:
       - "3000:3000"
+    networks:
+      - my_network
     working_dir: /react
     command: >
       sh -c "yarn && yarn start"
 
 volumes:
   mariadb_data:
+
+networks:
+  my_network:
+    driver: bridge

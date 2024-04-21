@@ -21,4 +21,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     
     path("api-auth/", include("rest_framework.urls")),
+    # categoris app
+    path("categories", include("categories.urls"))
 ]

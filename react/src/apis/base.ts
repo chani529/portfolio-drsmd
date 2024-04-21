@@ -10,7 +10,7 @@ const Base = {
   /**get mamber data */
   async getDataList(params?: any): Promise<Result<any>> {
     try {
-      return await axios.get("test", { params });
+      return await axios.get("categories", { params });
     } catch (e: any) {
       console.log(e);
       return e.message;
