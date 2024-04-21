@@ -1,0 +1,270 @@
+.float-right{
+  float: right;
+}
+.sidebar-container{
+  z-index: 1000;
+  &.open{
+    width: 200px;
+    height: 100%;
+    background: #18181e;
+    color: white;
+    transition: width 0.2s ease;
+    ul {
+      cursor: pointer;
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+      white-space: nowrap;
+      overflow: hidden;
+      display: block;
+      transition: all 0.3s ease;
+      li {
+        a{
+          position: relative;
+          align-items: center;
+          display: flex;
+          padding: 0px 16px;
+          white-space: nowrap;
+          height: 45px;
+          opacity: 0.8;
+          align-items: center;
+          .menu-title{
+            text-align: center;
+            display: flex;
+            width: 20px;
+            min-height: 16px;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            opacity: 1;
+            height: 20px;
+            margin-left: 14px;
+            align-items: center;
+          }
+          .chevron-down{
+            transition: all 0.3s ease-out;
+            width: 10px;
+            opacity: 1;
+            pointer-events: none;
+          }
+        }
+        a:hover{
+          opacity: 1;
+        }
+        ul hr{
+          display: none;
+        }
+      } 
+      li.active{
+        background-color: #FF3030;
+      }
+      .drop-menu-title{
+        display: none;
+      }
+    }
+    .nav-sub-menu{
+      background: #303030;
+      hr{
+        display: none;
+        opacity: 0;
+      }
+      .active{
+        background-color: #FF3030;
+        a{
+          opacity: 1;
+        }
+      }
+      li > a{
+        margin-left: 26px;
+      }
+    }
+    .nav-sub2-menu > li > a{
+      margin-left: 38px;
+    }
+    .company-text-logo{
+      display: flex;
+      height: 18px;
+      margin-left: 16px;
+      transition: all 0.2s ease;
+      opacity: 1;
+    }
+    
+    .menu-icon{
+      pointer-events: none;
+      display: flex;
+    }
+  }
+}
+
+.company-image-logo{
+  width: 16px;
+  margin-left: 16px;
+  display: flex;    
+  font-size: 1.6rem;
+}
+.nav-header{
+  display: flex;
+  align-items: center;
+  height: 60px;
+  white-space: nowrap;
+}
+
+.nav-sub-menu {
+  background-color: black;
+}
+
+
+/* Sidebar Drop Box 상태 CSS */
+.sidebar-container:not(.open){
+  z-index: 1000;
+  width: 50px;
+  height: 100vh;
+  background: black;
+  color: white;
+  transition: width 0.2s ease;
+  .nav-sub-menu{
+    .active{
+      background-color: rgba(0,0,0,0);
+      font-weight: bold;
+      .menu-title{
+        opacity: 0;
+      }
+    }
+  }
+  ul{
+    display: block;
+    list-style: none;
+    margin: 0;
+    overflow: inherit;
+    padding-left: 0;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+    white-space: nowrap;
+    li{
+      position: relative;
+      cursor: pointer;
+      .nav-sub-menu{
+        border-radius: 0 6px 6px 0;
+        display: none;
+        left: 50px;
+        margin-top: 0;
+        padding: 16px 10px;
+        position: absolute;
+        top: -1px;
+        -webkit-transition: all .3s ease;
+        transition: all .3s ease;
+        width: 150px;
+        li{
+          border-radius: 10px;
+        }
+        .active{
+          background-color: rgba(0,0,0,0);
+          font-weight: bold;
+        }
+        hr{
+          display: grid;
+          opacity: 0.2;
+        }
+        .menu-title{
+          margin-left: 0px;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+      }
+      .nav-sub-menu.active{
+        z-index: 2;
+        display: block;
+        span{
+          opacity: 1;
+        }
+      }
+      a{
+        display: flex;
+        height: 45px;
+        opacity: .8;
+        padding: 0px 16px;
+        position: relative;
+        white-space: nowrap;
+        align-items: center;
+        span{
+          opacity: 0;
+        }
+        .chevron-down{
+          transition: all 0.6s cubic-bezier(0, 2.46, 0.9, 1.17) !important;
+          width: 0;
+          opacity: 0;
+          height: 0;
+        }
+        .menu-icon{
+          display: inline-block;
+          min-height: 16px;
+          opacity: 1;
+          pointer-events: none;
+          text-align: center;
+          -webkit-transition: all .3s ease;
+          transition: all .3s ease;
+          width: 20px;
+          height: 20px;
+        }
+        .menu-title{
+          margin-left: 14px;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          height: 20px;
+        }
+      }
+    }
+    li.active{
+      background-color: transparent;
+    }
+    li:hover{
+      .nav-sub-menu{
+        opacity: 1;
+        overflow: hidden;
+      }
+    }
+    .nav-sub2-menu{
+      overflow: hidden;
+      background-color: darkslategrey;
+      border-radius: 10px;
+      padding-left: 0px;
+      text-indent: 1rem;
+      .menu-title{
+        margin-left: 0px;
+      }
+    }
+  }
+  .company-text-logo{
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .drop-menu-title{
+    display: inherit;
+  }
+  .company-text-logo{
+    pointer-events: none;
+    opacity: 0;
+  }
+}
+
+.sidebar-container ul li .nav-sub-menu > li > a,
+.sidebar-container ul li .nav-sub2-menu > li > a{
+  margin-left: 0px;
+}
+
+.sidebar-container ul {
+  overflow: inherit;
+}
+.sidebar-container.close .nav-header{
+  opacity: 0;
+}
+.sidebar-container.close ul,
+.sidebar-container.close ul .menu-icon,
+.sidebar-container.close ul a{
+  opacity: 0;
+  pointer-events: none;
+}
