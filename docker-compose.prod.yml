@@ -1,0 +1,51 @@
+version: "3"
+
+services:
+  web:
+    image: python:3.9
+    volumes:
+      - ./django:/app/django
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=mysql://user:password@db:3306/chson
+    networks:
+      - my_network
+    working_dir: /app/django
+    command: >
+      sh -c "pip install -r requirements.txt && 
+             python manage.py migrate && 
+             gunicorn -c gunicorn_config.py my_django_project.wsgi:application"
+
+  db:
+    image: mariadb:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=4126
+      - MYSQL_DATABASE=mydatabase
+      - MYSQL_USER=chson
+      - MYSQL_PASSWORD=8846
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+
+  react:
+    image: node:20.12.2
+    volumes:
+      - ./react:/react
+    ports:
+      - "3000:3000"
+    networks:
+      - my_network
+    working_dir: /react
+    command: >
+      sh -c "yarn && yarn start"
+
+volumes:
+  mariadb_data:
+
+networks:
+  my_network:
+    driver: bridge
