@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,12 +82,20 @@ WSGI_APPLICATION = "django_stady.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'db',
+        'PORT': 3306,      
+        'NAME': 'mydatabase',
+        'USER': 'chson',
+        'PASSWORD': '8846',
     }
 }
 
+        # 'PORT': 3306,      
+        # 'NAME': 'mydatabase',
+        # 'USER': 'chson',
+        # 'PASSWORD': '8846',
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
