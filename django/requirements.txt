@@ -7,3 +7,4 @@ Markdown==3.6
 sqlparse==0.4.4
 typing_extensions==4.11.0
 zipp==3.18.1
+gunicorn==22.0.0
