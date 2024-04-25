@@ -17,15 +17,6 @@ function TestPage() {
   useEffect(() => {
     const test = apis.Base.getDataList();
     console.log(test);
-    const fetchData = async () => {
-      setLoading(true);
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
-      setPosts(response.data);
-      setLoading(false);
-    };
-    fetchData();
   }, []);
 
   return (

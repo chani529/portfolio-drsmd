@@ -2,22 +2,15 @@ version: "3"
 
 services:
   web:
-    image: python:3.9
+    build:
+      context: ./django
+      dockerfile: Dockerfile
     volumes:
       - ./django:/app/django
     ports:
       - "8080:8080"
     depends_on:
       - db
-    environment:
-      - DATABASE_URL=mysql://user:password@db:3306/chson
-    networks:
-      - my_network
-    working_dir: /app/django
-    command: >
-      sh -c "pip install -r requirements.txt && 
-             python manage.py migrate && 
-             python manage.py runserver 0.0.0.0:8080"
 
   db:
     image: mariadb:latest
@@ -32,20 +25,16 @@ services:
       - "3307:3306"
 
   react:
-    image: node:20.12.2
+    build:
+      context: ./react
+      dockerfile: Dockerfile
     volumes:
       - ./react:/react
     ports:
       - "3000:3000"
-    networks:
-      - my_network
-    working_dir: /react
-    command: >
-      sh -c "yarn && yarn start"
 
 volumes:
   mariadb_data:
-
-networks:
-  my_network:
-    driver: bridge
+# networks:
+#   my_network:
+#     driver: bridge
