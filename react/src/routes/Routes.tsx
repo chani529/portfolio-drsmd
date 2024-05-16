@@ -4,6 +4,7 @@ import { DefaultLayout } from "@components/layouts/index";
 import Home from "@pages/Home";
 import TestPage from "@pages/TestPage";
 import Testpage2 from "@pages/TestPage2";
+import Login from "@pages/auth/Login";
 
 const Routes = () => {
   const routesConfig = useRoutes([
@@ -15,6 +16,10 @@ const Routes = () => {
         { path: "test1", element: <TestPage /> },
         { path: "test2", element: <Testpage2 /> },
       ],
+    },
+    {
+      path: "/login",
+      element: <Login />,
     },
   ]);
 
