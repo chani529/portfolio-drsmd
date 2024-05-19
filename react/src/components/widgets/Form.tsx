@@ -1,34 +1,19 @@
 import React from "react";
-import styled from "styled-components";
-import Input from "./Input";
+import { FormProvider, useForm, FieldValues } from "react-hook-form";
 
-function Form(props: any) {
-    const { name, inputId, required, vertical } = props;
-    return (
-        <>
-            <$LabelWap vertical={vertical}>
-                {required && <$Required>*</$Required>}
-                <$Label htmlFor={inputId}>
-                    {vertical ? `${name}` : `${name} :`}
-                </$Label>
-            </$LabelWap>
-            <Input id={inputId} />
-        </>
-    );
+interface FormProps<T extends FieldValues> {
+  onSubmit: (data: T) => void;
+  children: React.ReactNode;
+}
+
+function Form<T extends FieldValues>({ onSubmit, children }: FormProps<T>) {
+  const methods = useForm<T>();
+
+  return (
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>
+    </FormProvider>
+  );
 }
 
 export default Form;
-
-const $LabelWap = styled.div<{ vertical: string }>`
-    display: ${(props) => (props.vertical ? "block" : "inline-block")};
-    margin-bottom: ${(props) => (props.vertical ? "0.5rem" : "none")};
-`;
-const $Label = styled.label`
-    margin-right: 0.5rem;
-    font-size: 14px;
-`;
-
-const $Required = styled.span`
-    margin-right: 0.1rem;
-    color: red;
-`;

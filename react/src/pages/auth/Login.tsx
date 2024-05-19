@@ -1,57 +1,36 @@
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
-import React, { useState } from "react";
+import Button from "@components/widgets/Button";
+import Form from "@components/widgets/Form";
+import Input from "@components/widgets/Input";
+import { LoginParams } from "@type/authTypes";
+import { SubmitHandler } from "react-hook-form";
+import auth from "src/apis/auth";
 import styled from "styled-components";
-
-interface LoginInfo {
-  email: string;
-  password: string;
-}
+import { useNavigate } from "react-router";
 
 const Login = () => {
-  const handleLogin = (loginInfo: LoginInfo) => {
-    console.log("Received values:", loginInfo);
-    // 여기에 로그인 처리 로직을 추가할 수 있습니다.
+  const navigate = useNavigate();
+
+  const onSubmit: SubmitHandler<LoginParams> = async (data) => {
+    await auth.login(data).then((response) => {
+      sessionStorage.setItem("TOKEN", response.resultData.token);
+      navigate("/home");
+    });
   };
 
   return (
     <LoginFormWrapper>
       <LoginFormContainer>
-        <h2 className="mt-5 mb-4">로그인</h2>
-        <Form
-          name="normal_login"
-          className="login-form"
-          initialValues={{ remember: true }}
-          onFinish={handleLogin}
-        >
-          <Form.Item
-            name="email"
-            rules={[{ required: true, message: "이메일을 입력하세요!" }]}
-          >
-            <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="이메일"
-            />
-          </Form.Item>
-          <Form.Item
+        <h3>로그인</h3>
+        <Form onSubmit={onSubmit}>
+          <Input name="email" rules={{ required: "이메일을 입력해주세요" }} />
+          <Input
             name="password"
-            rules={[{ required: true, message: "비밀번호를 입력하세요!" }]}
-          >
-            <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="비밀번호"
-            />
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-            >
-              로그인
-            </Button>
-          </Form.Item>
+            type="password"
+            rules={{ required: "비밀번호을 입력해주세요" }}
+          />
+          <Button type="submit" width="100%">
+            Login
+          </Button>
         </Form>
       </LoginFormContainer>
     </LoginFormWrapper>

@@ -1,6 +1,6 @@
-import { LoginFormData } from "@type/formType";
 import axios from "./config";
 import { Auth, Result } from "@type/responseType";
+import { ApiResponse, LoginParams } from "@type/authTypes";
 
 export default {
   /**
@@ -8,7 +8,7 @@ export default {
    * @param params
    * @returns
    */
-  async login(params: LoginFormData): Promise<Result<Auth>> {
+  async login(params: LoginParams): Promise<Result<ApiResponse>> {
     try {
       return await axios.post("auth", params);
     } catch (e: any) {

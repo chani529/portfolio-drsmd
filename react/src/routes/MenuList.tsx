@@ -20,18 +20,6 @@ export const menuList: Menu[] = [
       {
         title: "Basic",
         link: "",
-        child: [
-          {
-            title: "test1",
-            link: "/test1",
-            linkedPage: [],
-            child: [],
-          },
-        ],
-      },
-      {
-        title: "test2",
-        link: "/test2",
         child: [],
       },
     ],
