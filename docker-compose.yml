@@ -5,6 +5,7 @@ services:
     build:
       context: ./django
       dockerfile: Dockerfile
+    restart: always
     volumes:
       - ./django:/app/django
     ports:
@@ -21,7 +22,7 @@ services:
   db:
     image: mariadb:latest
     environment:
-      - MYSQL_ROOT_PASSWORD=4126
+      - MYSQL_ROOT_PASSWORD=8846
       - MYSQL_DATABASE=mydatabase
       - MYSQL_USER=chson
       - MYSQL_PASSWORD=8846
