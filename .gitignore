@@ -26,3 +26,14 @@ yarn-error.log*
 
 # django
 /venv
+
+# 디버그 로그 및 캐시
+*.log
+*.pot
+*.pyc
+__pycache__/
+# 개발 환경 설정 파일
+*.sqlite3
+*.pyc
+*.pyo
+*.env
