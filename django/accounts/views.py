@@ -1,21 +1,25 @@
 from django.shortcuts import render
-from rest_framework.views import APIView
-from rest_framework_simplejwt.tokens import RefreshToken
-from .models import Account
+from .serializers import UserSerializer
+from .models import User
+from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
+from .serializers import UserLoginSerializer
 
-# Create your views here.
-class UserLoginAPIView(APIView):
-    def post(self, request):
-        email = request.data.get('email')
-        password = request.data.get('password')
+# 회원가입
 
-        obj = Account.objects.get(email=email)
-        if request.data.get('password') == obj.password:
-            refresh = RefreshToken.for_user(obj)
-            return Response({
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
-            })
-        else:
-            return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+class UserCreate(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserLoginView(generics.GenericAPIView):
+    serializer_class = UserLoginSerializer
+    permission_classes = [AllowAny]  # 모든 사용자에게 허용
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        tokens = serializer.save()
+        return Response(tokens, status=status.HTTP_200_OK)

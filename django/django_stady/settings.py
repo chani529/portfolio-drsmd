@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     'rest_framework.authtoken',
-    "corsheaders",
     "categories",
     'accounts',
 ]
@@ -55,7 +54,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "django_stady.urls"
@@ -76,6 +74,11 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': timedelta(days=7),
     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=28),
 }
+
+AUTH_USER_MODEL = 'accounts.User'
+# 세션 엔진을 변경하여 DB 테이블을 생성하지 않도록 합니다.
+# 또는 'django.contrib.sessions.backends.signed_cookies'
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 TEMPLATES = [
     {
@@ -103,17 +106,17 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'HOST': 'db',
-        'PORT': 3306,      
+        'PORT': 3306,
         'NAME': 'mydatabase',
         'USER': 'chson',
         'PASSWORD': '8846',
     }
 }
 
-        # 'PORT': 3306,      
-        # 'NAME': 'mydatabase',
-        # 'USER': 'chson',
-        # 'PASSWORD': '8846',
+# 'PORT': 3306,
+# 'NAME': 'mydatabase',
+# 'USER': 'chson',
+# 'PASSWORD': '8846',
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -145,6 +148,13 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # 액세스 토큰 수명 설정
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # 리프레시 토큰 수명 설정
 }
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
