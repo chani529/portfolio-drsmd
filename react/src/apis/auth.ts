@@ -10,7 +10,7 @@ export default {
    */
   async login(params: LoginParams): Promise<Result<ApiResponse>> {
     try {
-      return await axios.post("auth", params);
+      return await axios.post("user/signin/", params);
     } catch (e: any) {
       return e.message;
     }

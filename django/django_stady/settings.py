@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     'rest_framework.authtoken',
+    'corsheaders',
     "categories",
     'accounts',
 ]
@@ -54,12 +55,18 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = "django_stady.urls"
 
-# 모든 도메인 허용
-CORS_ALLOW_ALL_ORIGINS = True
+# # 모든 도메인 허용
+# CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # React 앱의 주소
+    # 다른 허용할 origin 주소들도 추가 가능
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

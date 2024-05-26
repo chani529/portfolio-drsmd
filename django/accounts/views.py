@@ -22,4 +22,11 @@ class UserLoginView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         tokens = serializer.save()
-        return Response(tokens, status=status.HTTP_200_OK)
+        return Response(
+            {
+                "resultCode": 200,
+                "status": status.HTTP_200_OK,
+                "resultData": tokens,
+                "resultMessage": "success",
+
+            })
