@@ -1,5 +1,6 @@
 export interface ApiResponse {
-    token: string;
+    access: string;
+    refresh: string;
 }
   
 export interface LoginParams {

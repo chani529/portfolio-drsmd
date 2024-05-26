@@ -12,7 +12,7 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<LoginParams> = async (data) => {
     await auth.login(data).then((response) => {
-      sessionStorage.setItem("TOKEN", response.resultData.token);
+      sessionStorage.setItem("TOKEN", response.resultData.access);
       navigate("/home");
     });
   };

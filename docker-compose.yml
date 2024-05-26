@@ -28,6 +28,7 @@ services:
       - MYSQL_PASSWORD=8846
     volumes:
       - mariadb_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "3307:3306"
 
